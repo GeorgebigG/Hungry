@@ -12,6 +12,7 @@ public class DesktopLauncher implements ShowDialog {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width  = (int) (Main.WIDTH * 1.2);
 		config.height = (int) (Main.HEIGHT * 1.2);
+		config.samples = 4;
 
 		Main.dialog = new DesktopLauncher();
 

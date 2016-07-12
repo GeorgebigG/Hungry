@@ -64,6 +64,9 @@ public abstract class Screen implements com.badlogic.gdx.Screen {
     protected static final long smallEnemySpawnTime = 1000000000l;
     protected static final long largeEnemySpawnTime = 8000000000l;
 
+    private enum Shape { CIRCLE, SQUARE; }
+    private Shape shape = Shape.CIRCLE;
+
     public Screen(Main game) {
         this.game = game;
         batch = game.batch;
@@ -131,24 +134,32 @@ public abstract class Screen implements com.badlogic.gdx.Screen {
 
     protected void drawPlayer() {
         renderer.setColor(playerColor);
-        //renderer.circle(getDrawingPlayerPosition().x, getDrawingPlayerPosition().y, getDrawingPlayerPosition().width);
-        if (player.width > 0)
-            renderer.rect(player.x, player.y, player.width, player.height);
+        if (shape == Shape.SQUARE) {
+            if (player.width > 0)
+                renderer.rect(player.x, player.y, player.width, player.height);
+        }
+        else
+            if  (player.width > 0)
+                renderer.circle(getDrawingPlayerPosition().x, getDrawingPlayerPosition().y, getDrawingPlayerPosition().width);
     }
 
     protected void drawSmallEnemies() {
         for (Enemy cell : smallEnemies) {
             renderer.setColor(cell.color);
-            //renderer.circle(getCirclePosition(cell.enemyBody).x, getCirclePosition(cell.enemyBody).y, getCirclePosition(cell.enemyBody).width);
-            renderer.rect(cell.enemyBody.x, cell.enemyBody.y, cell.enemyBody.width, cell.enemyBody.height);
+            if (shape == Shape.CIRCLE)
+                renderer.circle(getCirclePosition(cell.enemyBody).x, getCirclePosition(cell.enemyBody).y, getCirclePosition(cell.enemyBody).width);
+            else
+                renderer.rect(cell.enemyBody.x, cell.enemyBody.y, cell.enemyBody.width, cell.enemyBody.height);
         }
     }
 
     protected void drawLargeEnemies() {
         for (Enemy cell : largeEnemies) {
             renderer.setColor(cell.color);
-            //renderer.circle(getCirclePosition(cell.enemyBody).x, getCirclePosition(cell.enemyBody).y, getCirclePosition(cell.enemyBody).width);
-            renderer.rect(cell.enemyBody.x, cell.enemyBody.y, cell.enemyBody.width, cell.enemyBody.height);
+            if (shape == Shape.CIRCLE)
+                renderer.circle(getCirclePosition(cell.enemyBody).x, getCirclePosition(cell.enemyBody).y, getCirclePosition(cell.enemyBody).width);
+            else
+                renderer.rect(cell.enemyBody.x, cell.enemyBody.y, cell.enemyBody.width, cell.enemyBody.height);
         }
     }
 
